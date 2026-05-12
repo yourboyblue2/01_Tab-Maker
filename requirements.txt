@@ -1,0 +1,7 @@
+yt-dlp
+ffmpeg-python
+demucs
+basic-pitch
+numpy
+librosa
+soundfile
