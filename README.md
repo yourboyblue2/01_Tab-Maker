@@ -1,5 +1,7 @@
 # Song-to-Tab (v1)
 
+NOTE: the function to convert the midi file to a tab is not great. I am exploring other options to do better tab mapping. 
+
 A CLI tool that downloads a YouTube audio track, isolates the guitar part, transcribes notes, and renders ASCII guitar tablature.
 
 This repository contains a v1 implementation with sensible fallbacks. For best results, install the heavy ML packages listed in `requirements.txt`.
