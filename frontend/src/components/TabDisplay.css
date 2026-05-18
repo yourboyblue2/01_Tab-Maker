@@ -1,0 +1,45 @@
+.tab-display {
+  background: #111;
+  border: 1px solid #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tab-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #2a2a2a;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tab-meta h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.bpm {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 2px;
+  display: block;
+}
+
+.tab-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.tab-content {
+  padding: 24px 20px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: #c8f5c8;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0;
+}

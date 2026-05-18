@@ -6,23 +6,26 @@ import numpy as np
 from pathlib import Path
 
 
-def transcribe(audio_path: str, min_confidence: float=0.5, verbose: bool=False) -> List[Dict]:
+def transcribe(audio_path: str, min_confidence: float=0.5, verbose: bool=False, midi_output_path: str=None) -> List[Dict]:
     # Try basic_pitch first
     try:
         from basic_pitch.inference import predict
+        from basic_pitch import ICASSP_2022_MODEL_PATH
         if verbose:
             print('Using basic-pitch for transcription')
-        # basic-pitch predict API can accept a waveform; for simplicity we let user install and adapt
-        # Here we attempt to call predict on the file path if supported
-        wav = audio_path
-        # NOTE: exact basic-pitch API may differ; users should install basic-pitch for best results.
-        preds = predict(wav)
-        # preds is assumed to contain note events; because APIs vary, we'll attempt to extract
+        # Returns (model_output, midi_data, note_events)
+        # note_events: list of (start_s, end_s, pitch_midi, amplitude, pitch_bends)
+        _, midi_data, note_events = predict(audio_path, ICASSP_2022_MODEL_PATH)
+        if midi_output_path:
+            midi_data.write(midi_output_path)
         events = []
-        # This is a placeholder mapping and may need adaptation to actual basic-pitch outputs
-        for n in preds.get('notes', []):
-            midi = int(n['midi'])
-            events.append({'pitch': midi, 'onset_time': float(n['start']), 'duration': float(n['duration']), 'confidence': float(n.get('confidence', 1.0))})
+        for (start_s, end_s, pitch_midi, amplitude, _) in note_events:
+            events.append({
+                'pitch': int(pitch_midi),
+                'onset_time': float(start_s),
+                'duration': float(end_s - start_s),
+                'confidence': float(amplitude),
+            })
         return [e for e in events if e['confidence'] >= min_confidence]
     except Exception:
         if verbose:

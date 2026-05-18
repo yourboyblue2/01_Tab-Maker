@@ -5,3 +5,7 @@ basic-pitch
 numpy
 librosa
 soundfile
+fastapi
+uvicorn[standard]
+anthropic
+python-multipart
